@@ -5,7 +5,7 @@ using Discord.WebSocket;
 using Discord.Commands;
 using Events;
 using System.Reflection;
-
+// test2
 
 // hi stealth
 public class Program {
