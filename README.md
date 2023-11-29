@@ -68,5 +68,4 @@ Even if you're not gonna adhere to it, please don't be a skid and put your own n
 ## Authors
 
 - [@0x-Stealth](https://www.github.com/0x-Stealth)
-- [@m21acro](https://wwww.github.com/m21acro)
-
+- [@m21acro](https://github.com/m21acro)
