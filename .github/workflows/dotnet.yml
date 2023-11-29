@@ -25,4 +25,4 @@ jobs:
     - name: Install dependencies 2
       run: dotnet add package HtmlAgilityPack
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet publish -r win10-x64 -c Release /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true
