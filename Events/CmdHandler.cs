@@ -77,6 +77,10 @@ namespace Events
                 Commands.Kill.Run(Message,FullCommand[1..]);
                 break;
 
+                case "uaccheck":
+                Commands.UACCheck.Run(Message,FullCommand[1..]);
+                break;
+
                 
 
                 default:
