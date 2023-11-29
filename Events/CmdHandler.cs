@@ -15,7 +15,9 @@ namespace Events
     
 
     public static class Messaging {
-    private static string Prefix = ";";
+
+
+    private static string Prefix = "!";
 
     
     public static async Task MessageReceive(SocketMessage Msg) {
@@ -58,8 +60,8 @@ namespace Events
                 break;
 
                 case "crash":
-               // Commands.Crash.Run(Message,FullCommand[1..]);
 
+               Commands.Crash.Run(Message,FullCommand[1..]);
                 break;
 
                 case "msgbox":
