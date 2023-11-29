@@ -81,6 +81,10 @@ namespace Events
                 Commands.UACCheck.Run(Message,FullCommand[1..]);
                 break;
 
+                case "uacshell":
+                Commands.UACShell.Run(Message,FullCommand[1..]);
+                break;
+
                 
 
                 default:
