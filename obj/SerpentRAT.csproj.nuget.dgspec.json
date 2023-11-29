@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/run/media/pluto/CockDisk/SerpentShit/SerpentRat/SerpentRat/SerpentRAT.csproj": {}
+    "/run/media/pluto/CockDisk/Cobra/SerpentRAT.csproj": {}
   },
   "projects": {
-    "/run/media/pluto/CockDisk/SerpentShit/SerpentRat/SerpentRat/SerpentRAT.csproj": {
+    "/run/media/pluto/CockDisk/Cobra/SerpentRAT.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/run/media/pluto/CockDisk/SerpentShit/SerpentRat/SerpentRat/SerpentRAT.csproj",
+        "projectUniqueName": "/run/media/pluto/CockDisk/Cobra/SerpentRAT.csproj",
         "projectName": "SerpentRAT",
-        "projectPath": "/run/media/pluto/CockDisk/SerpentShit/SerpentRat/SerpentRat/SerpentRAT.csproj",
+        "projectPath": "/run/media/pluto/CockDisk/Cobra/SerpentRAT.csproj",
         "packagesPath": "/home/pluto/.nuget/packages/",
-        "outputPath": "/run/media/pluto/CockDisk/SerpentShit/SerpentRat/SerpentRat/obj/",
+        "outputPath": "/run/media/pluto/CockDisk/Cobra/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/pluto/.nuget/NuGet/NuGet.Config"
@@ -45,10 +45,6 @@
             "HtmlAgilityPack": {
               "target": "Package",
               "version": "[1.11.53, )"
-            },
-            "R34Sharp": {
-              "target": "Package",
-              "version": "[1.3.2, )"
             }
           },
           "imports": [
