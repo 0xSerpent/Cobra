@@ -1,39 +1,61 @@
-using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
+using Helper;
 
-namespace Commands
-{
-  public static class PsInfo
-  {
-    public static async Task Run(SocketUserMessage message, string[] args)
-    {
-      int index = Convert.ToInt32(args[0]);
-      Console.WriteLine(index);
+namespace Commands {
+    public static class PsInfo {
 
-      Process[] processes = Process.GetProcesses();
-      Process process = processes[index];
 
-      string name = process.ProcessName;
-      string id = $"{process.Id}";
+            public static async Task Run(SocketUserMessage Message, string[] args) {
+                
 
-      ButtonBuilder pinButton = new ButtonBuilder()
-        .WithStyle(ButtonStyle.Primary)
-        .WithCustomId("pin_msg")
-        .WithLabel("📌");
+              //  Dictionary<int,Process> PS = new Dictionary<string, string>();
 
-      ButtonBuilder deleteButton = new ButtonBuilder()
-        .WithStyle(ButtonStyle.Danger)
-        .WithCustomId("delete_msg")
-        .WithLabel("❌");
+                int index = Convert.ToInt32(args[0]);
 
-      string threadCount = $"{process.Threads.Count}";
+                Console.WriteLine(index);
 
-      Embed embedToSend = new SerpentEmbed().GetEmbed(SerpentEmbeds.Success, "Process info", $"> Name: ``{name}``\n> PID: ``{id}``\n> Threads: ``{threadCount}``");
+                Process[] ps = Process.GetProcesses();
 
-      await message.ReplyAsync(embed: embedToSend, components: new ComponentBuilder().WithButton(pinButton).WithButton(deleteButton).Build());
+                Process p = ps[index];
+
+                
+
+                string Name = p.ProcessName;
+                string ID = $"{p.Id}";
+                ButtonBuilder PINbutton =  new ButtonBuilder();
+                ButtonBuilder DButton = new ButtonBuilder();
+                PINbutton
+                .WithStyle(ButtonStyle.Primary)
+                .WithCustomId("pin_msg")
+                .WithLabel("📌");
+
+                 DButton
+                .WithStyle(ButtonStyle.Danger)
+                .WithCustomId("delete_msg")
+                .WithLabel("❌");
+
+                
+
+
+        
+                string ThreadCount = $"{p.Threads.Count}";
+               
+                
+            
+                
+                
+                Embed EmbedToSend = new SerpentEmbed().GetEmbed(SerpentEmbeds.Success,$"Process info" , $"> Name : ``{Name}``\n> PID : ``{ID}``\n> Threads : ``{ThreadCount}``");
+                
+                await Message.ReplyAsync(embed : EmbedToSend,components: new ComponentBuilder().WithButton(PINbutton).WithButton(DButton).Build());
+               
+               
+
+
+                
+            }
+
+            
+        }
     }
-  }
-}

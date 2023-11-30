@@ -1,45 +1,80 @@
 using System;
-using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 
 namespace Events
 {
-    public static class Logging
-    {
-        public static Task Log(LogMessage msg)
-        {
-            Console.WriteLine($"Log: {msg}");
-            return Task.CompletedTask;
-        }
 
-        public static Task Ready()
-        {
-            Console.WriteLine("Serpent is ready.");
-            return Task.CompletedTask;
-        }
 
-        public static async Task HandleInteractions(dynamic component)
-        {
-            if (component is SocketMessageComponent interaction)
+    public static class Logging {
+
+    public static  Task Log(LogMessage Msg) {
+
+        Console.WriteLine($"Log : {Msg.ToString()}");
+        return Task.CompletedTask;
+    }
+
+    public static Task Ready() {
+        Console.WriteLine("Serpent is ready.");
+        
+        return Task.CompletedTask;
+    }
+
+    public static async Task HandleInteractions(dynamic component) {
+
+             if (component is SocketMessageComponent Interaction)
             {
-                await interaction.DeferAsync();
+                
+                
+                switch (Interaction.Data.CustomId) {
 
-                switch (interaction.Data.CustomId)
-                {
                     case "pin_msg":
-                        await interaction.Message.PinAsync();
-                        break;
+
+                    await Interaction.DeferAsync();
+
+                    await Interaction.Message.PinAsync();
+                    break;
 
                     case "delete_msg":
-                        await interaction.Message.DeleteAsync();
-                        break;
+                    await Interaction.DeferAsync();
+
+                    await Interaction.Message.DeleteAsync();
+    
+
+                    break;
 
                     case "unpin_msg":
-                        await interaction.Message.UnpinAsync();
-                        break;
+                    
+                    await Interaction.DeferAsync();
+                    await Interaction.Message.UnpinAsync();
+
+                    break;
+
                 }
+                if (Interaction.Data.CustomId == "pin_msg") {
+
+                    await Interaction.DeferAsync();
+
+                    await Interaction.Message.PinAsync();
+                
+
+
             }
-        }
+
+       
+
+            }
+            
+        
+        
     }
+
+
+  
+    
+
+
+};
+
+    
 }
