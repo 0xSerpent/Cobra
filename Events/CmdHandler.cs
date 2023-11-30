@@ -8,9 +8,12 @@ using Helper;
 
 namespace Events
 {
-    public static class Messaging
-    {
-        private static string Prefix = ";";
+
+    
+    
+
+    public static class Messaging {
+    private static string Prefix = ";";
 
         public static async Task MessageReceive(SocketMessage msg)
         {
@@ -44,8 +47,9 @@ namespace Events
                     break;
 
                 case "crash":
-                    // await Commands.Crash.Run(message, fullCommand[1..]);
-                    break;
+               // Commands.Crash.Run(Message,FullCommand[1..]);
+
+                break;
 
                 case "msgbox":
                     await Commands.Messagebox.Run(message, fullCommand[1..]);
