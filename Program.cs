@@ -9,7 +9,7 @@ namespace Cobra
 {
     internal class CobraMain
     {
-
+// t
     private DiscordSocketClient CobraClient;
     private CommandService CobraCommandService;
     public static Task Main() => new CobraMain().InitializeBot();
