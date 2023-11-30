@@ -8,8 +8,6 @@ using System.Reflection;
 // test2
 
 // hi stealth
-
-// i raped the nigga opps LoL
 public class Program {
 
     public DiscordSocketClient? Client;
