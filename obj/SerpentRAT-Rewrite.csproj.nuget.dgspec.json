@@ -1,0 +1,73 @@
+{
+  "format": 1,
+  "restore": {
+    "/run/media/pluto/a9cf059a-3d1c-481e-b4cc-122f2dc67969/SerpentRAT-Rewrite/SerpentRAT-Rewrite.csproj": {}
+  },
+  "projects": {
+    "/run/media/pluto/a9cf059a-3d1c-481e-b4cc-122f2dc67969/SerpentRAT-Rewrite/SerpentRAT-Rewrite.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/run/media/pluto/a9cf059a-3d1c-481e-b4cc-122f2dc67969/SerpentRAT-Rewrite/SerpentRAT-Rewrite.csproj",
+        "projectName": "SerpentRAT-Rewrite",
+        "projectPath": "/run/media/pluto/a9cf059a-3d1c-481e-b4cc-122f2dc67969/SerpentRAT-Rewrite/SerpentRAT-Rewrite.csproj",
+        "packagesPath": "/home/pluto/.nuget/packages/",
+        "outputPath": "/run/media/pluto/a9cf059a-3d1c-481e-b4cc-122f2dc67969/SerpentRAT-Rewrite/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/pluto/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "discord.net": {
+              "target": "Package",
+              "version": "[3.13.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.11, 7.0.11]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.111/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
